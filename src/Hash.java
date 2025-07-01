@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class hash {
+public class Hash {
     public boolean hasDuplicate(int[] nums) {
         HashSet<Integer> hset = new HashSet<Integer>();
 
@@ -190,5 +190,47 @@ public class hash {
             return true;
         }
         return false;
+    }
+    public int longestConsecutive(int[] nums) {
+        if(nums.length == 0) {
+            return 0;
+        }
+        selectionSort(nums);
+        // [2,20,4,10,3,4,5] -> [2,3,4,4,5,10,11, 12, 13, 14, 15]
+        // [-2, -1, 1, 2]
+        int max = 1;
+        int count = 1;
+        int temp = nums[0];
+        for(int i = 1; i < nums.length; i++) {
+            if(Math.abs(temp - nums[i]) == 0) {
+                continue;
+            } else if(Math.abs(temp - nums[i]) == 1) {
+                count++;
+                temp = nums[i];
+            } else {
+                temp = nums[i];
+                count = 1;
+            }
+            if(count > max) {
+                max = count;
+            }
+        }
+        return max;
+    }
+    public static void selectionSort(int[] arr) {
+        for(int i = 0; i < arr.length - 1; i++) {
+            int min_value = i;
+            for(int j = i + 1; j < arr.length; j++) {
+                if(arr[j] < arr[min_value]) {
+                    min_value = j;
+                }
+            }
+            swappedElement(arr, i, min_value);
+        }
+    }
+    public static void swappedElement(int[] arr, int a, int b) {
+        int temp = arr[a];
+        arr[a] = arr[b];
+        arr[b] = temp;
     }
 }
