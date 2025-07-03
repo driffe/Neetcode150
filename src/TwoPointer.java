@@ -81,4 +81,56 @@ public class TwoPointer {
 
         return result;
     }
+    public int maxArea(int[] heights) {
+        int length = heights.length - 1;
+        int left = 0;
+        int right = heights.length - 1;
+        int max = 0;
+        int temp = 0;
+        while(left < right) {
+            if(heights[left] < heights[right]) {
+                temp = length * heights[left];
+                left++;
+            } else {
+                temp = length * heights[right];
+                right--;
+            }
+            length--;
+            if(max < temp) {
+                max = temp;
+            }
+            System.out.println(temp);
+        }
+
+        return max;
+    }
+    public int trap(int[] height) {
+        int left = 0;
+        int right = height.length - 1;
+        int leftMax = 0;
+        int rightMax = 0;
+        int result = 0;
+
+        while (left < right) {
+            if(leftMax < height[left]) {
+                leftMax = height[left];
+            }
+            if(rightMax < height[right]) {
+                rightMax = height[right];
+            }
+
+            if (leftMax < rightMax) {
+                result += leftMax - height[left];
+                left++;
+            } else {
+                result += rightMax - height[right];
+                right--;
+            }
+            System.out.println(left + "," + right);
+            System.out.println(leftMax + "," + rightMax + "," + result);
+        }
+
+        return result;
+    }
+
 }
