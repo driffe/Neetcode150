@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Stack;
 
 public class stack {
@@ -82,4 +83,46 @@ public class stack {
 
         return stack.pop();
     }
+
+    public int[] dailyTemperatures(int[] temperatures) {
+        int[] result = new int[temperatures.length];
+
+        for(int i = 0; i < temperatures.length - 1; i++) {
+            int count = 0;
+            for(int j = i + 1; j < temperatures.length; j++) {
+                count++;
+                if(temperatures[j] > temperatures[i]) {
+                    result[i] = count;
+                    break;
+                }
+            }
+
+        }
+
+        return result;
+    }
+
+    public int carFleet(int target, int[] position, int[] speed) {
+        int n = position.length;
+        Stack<Double> stack = new Stack<>();
+
+        double[][] cars = new double[n][2];
+        for (int i = 0; i < n; i++) {
+            cars[i][0] = position[i];
+            cars[i][1] = (double)(target - position[i]) / speed[i];
+        }
+
+        Arrays.sort(cars, (a, b) -> Double.compare(b[0], a[0]));
+
+        for (int i = 0; i < cars.length; i++) {
+            double time = cars[i][1];
+
+            if (stack.isEmpty() || time > stack.peek()) {
+                stack.push(time);
+            }
+        }
+
+        return stack.size();
+    }
+
 }
