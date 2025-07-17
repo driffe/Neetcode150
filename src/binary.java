@@ -44,5 +44,47 @@ public class binary {
         }
         return false;
     }
+    public int minEatingSpeed(int[] piles, int h) {
+        int min = 1;
+        int max = 0;
 
+        for(int i : piles) {
+            if(max < i) {
+                max = i;
+            }
+        }
+
+        while(min < max) {
+            int mid = min + (max - min) / 2;
+            int time = 0;
+
+            for (int pile : piles) {
+                time += (pile + mid - 1) / mid;
+            }
+
+            if(time > h) {
+                min = mid + 1;
+            } else {
+                max = mid;
+            }
+        }
+
+        return min;
+    }
+    public int findMin(int[] nums) {
+        int left = 0;
+        int right = nums.length - 1;
+
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+
+            if (nums[right] < nums[mid]) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+
+        return nums[left];
+    }
 }
