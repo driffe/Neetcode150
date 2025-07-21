@@ -40,5 +40,29 @@ public class SlideWindow {
 
         return result;
     }
+    public boolean checkInclusion(String s1, String s2) {
+        String sortedS1 = sortString(s1);
 
+        for (int i = 0; i < s2.length(); i++) {
+            char current = s2.charAt(i);
+
+            if (s1.indexOf(current) != -1) {
+                if (i + s1.length() <= s2.length()) {
+                    String s2Sub = s2.substring(i, i + s1.length());
+                    String s2SortedSub = sortString(s2Sub);
+
+                    if (sortedS1.equals(s2SortedSub)) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+    private static String sortString(String str) {
+        char[] chars = str.toCharArray();
+        Arrays.sort(chars);
+        return new String(chars);
+    }
 }
