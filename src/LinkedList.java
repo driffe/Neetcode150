@@ -71,4 +71,43 @@ public class LinkedList {
         }
         lst.get(left).next = null;
     }
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode result = new ListNode(0);
+        ListNode temp = result;
+        int sum = 0;
+
+        while (l1 != null || l2 != null) {
+
+            if (l1 != null) {
+                sum += l1.val;
+                l1 = l1.next;
+            }
+            if (l2 != null) {
+                sum += l2.val;
+                l2 = l2.next;
+            }
+
+            result.next = new ListNode(sum % 10);
+            result = result.next;
+            sum /= 10;
+        }
+
+        if(sum > 0) {
+            result.next = new ListNode(sum);
+        }
+
+        return temp.next;
+    }
+    public int findDuplicate(int[] nums) {
+        HashSet<Integer> seen = new HashSet<>();
+
+        for (int num : nums) {
+            if (seen.contains(num)) {
+                return num;
+            }
+            seen.add(num);
+        }
+
+        return -1;
+    }
 }
