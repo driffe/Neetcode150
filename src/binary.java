@@ -87,4 +87,31 @@ public class binary {
 
         return nums[left];
     }
+    public int minEatingSpeed(int[] piles, int h) {
+        int min = 1;
+        int max = 0;
+
+        for(int i : piles) {
+            if(max < i) {
+                max = i;
+            }
+        }
+
+        while(min < max) {
+            int mid = min + (max - min) / 2;
+            int time = 0;
+
+            for (int pile : piles) {
+                time += (pile + mid - 1) / mid;
+            }
+
+            if(time > h) {
+                min = mid + 1;
+            } else {
+                max = mid;
+            }
+        }
+
+        return min;
+    }
 }
